@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Video TikTok Tanpa Watermark</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100vh;
+        }
+
+        header {
+            background-color: #ff2d55;
+            padding: 10px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .navbar h1 {
+            font-size: 24px;
+        }
+
+        main {
+            margin: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .download-section {
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            width: 80%;
+            max-width: 400px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            text-align: center;
+        }
+
+        #result.hidden {
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <h1>Download Video TikTok Tanpa Watermark</h1>
+        </div>
+    </header>
+
+    <main>
+        <section class="download-section">
+            <h2>Masukkan Link Video TikTok</h2>
+            <input type="text" id="videoUrl" placeholder="Paste link video TikTok di sini" />
+            <button onclick="downloadVideo()">Download Video</button>
+        </section>
+
+        <section id="result" class="hidden">
+            <h2>Video Siap Diunduh</h2>
+            <a id="downloadLink" href="#" download>
+                <button>Unduh Video</button>
+            </a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 TikTok Video Downloader. Semua Hak Dilindungi.</p>
+    </footer>
+
+    <script>
+        async function downloadVideo() {
+            const url = document.getElementById('videoUrl').value;
+            const resultSection = document.getElementById('result');
+            const downloadLink = document.getElementById('downloadLink');
+            
+            if (!url) {
+                alert("Harap masukkan URL video TikTok!");
+                return;
+            }
+
+            try {
+                // Menggunakan API untuk mendownload video tanpa watermark
+                const apiUrl = `https://api.ssstik.io/v1/convert?url=${encodeURIComponent(url)}`;
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    // Menampilkan link download
+                    downloadLink.href = data.download_url;
+                    resultSection.classList.remove('hidden');
+                } else {
+                    alert("Terjadi kesalahan. Coba lagi.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Terjadi kesalahan saat mengunduh video.");
+            }
+        }
+    </script>
+</body>
+</html>
